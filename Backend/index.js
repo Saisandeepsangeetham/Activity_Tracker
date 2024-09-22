@@ -1,19 +1,27 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 
 import roles from './Routes/roles.js';
 import activities from "./Routes/activities.js";
+import eventRouter from "./Routes/eventRoutes.js";
 import { connectToDatabase } from "./Models/database.js";
+import { errorHandler } from "./Middlewares/errorMiddleWare.js";
 
 dotenv.config();
+
 const port = process.env.PORT || 9999;
 const app = express();
 
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
-app.use("/roles", roles);
 app.use("/activities",activities);
+app.use("/events", eventRouter);
+app.use("/roles", roles);
+
+app.use(errorHandler);
 
 connectToDatabase((err) => {
   if (err) {
