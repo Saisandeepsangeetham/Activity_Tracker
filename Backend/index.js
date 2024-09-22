@@ -1,10 +1,13 @@
 import express from "express";
+import bodyParser from "body-parser";
+import dotenv from 'dotenv';
+
 import roles from './Routes/roles.js';
 import activities from "./Routes/activities.js";
 import { connectToDatabase } from "./Models/database.js";
-import bodyParser from "body-parser";
 
-const port = 9999;
+dotenv.config();
+const port = process.env.PORT || 9999;
 const app = express();
 
 app.use(bodyParser.json());
