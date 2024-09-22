@@ -1,5 +1,5 @@
 import express from 'express';
-import pool from '../Models/database';
+import pool from '../Models/database.js';
 
 const categories = express.Router();
 

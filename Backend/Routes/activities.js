@@ -1,5 +1,5 @@
 import express from 'express';
-import pool from '../Models/database';
+import pool from '../Models/database.js';
 
 const activity_router = express.Router();
 
@@ -84,7 +84,7 @@ activity_router.delete('/:id',(req,res)=>{
 });
 
 // add a participant to an activity
-app.post('/:activityId/participants', (req, res) => {
+activity_router.post('/:activityId/participants', (req, res) => {
     const { activityId } = req.params;
     const { userId, participantName } = req.body;
 
@@ -102,7 +102,7 @@ app.post('/:activityId/participants', (req, res) => {
 });
 
 //Remove a participant from an activity.
-app.delete('/:activityId/participants/:userId', (req, res) => {
+activity_router.delete('/:activityId/participants/:userId', (req, res) => {
     const { activityId, userId } = req.params;
 
     const sql = 'DELETE FROM participants WHERE activity_id = ? AND user_id = ?';
