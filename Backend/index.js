@@ -8,6 +8,7 @@ import activities from "./Routes/activities.js";
 import eventRouter from "./Routes/eventRoutes.js";
 import { connectToDatabase } from "./Models/database.js";
 import { errorHandler } from "./Middlewares/errorMiddleWare.js";
+import authRoutes from "./Routes/userRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 app.use("/activities",activities);
+app.use("/user", authRoutes);
 app.use("/events", eventRouter);
 app.use("/roles", roles);
 
