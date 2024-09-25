@@ -5,6 +5,11 @@ import morgan from 'morgan';
 
 import { connectToDatabase } from "./Models/database.js";
 import { errorHandler } from "./Middlewares/errorMiddleWare.js";
+import activityRouter from'./Routes/activities.js';
+import eventRouter from './Routes/eventRoutes.js';
+import categoryRouter from './Routes/categories.js';
+import rolesRouter from './Routes/roles.js';
+import authRoutes from "./Routes/userRoutes.js";
 
 dotenv.config();
 
@@ -14,7 +19,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-app.use("/activities",activities);
+app.use("/activities",activityRouter);
+app.use('/auth',authRoutes);
 app.use("/events", eventRouter);
 app.use("/categories", categoryRouter);
 app.use("/roles", rolesRouter);
