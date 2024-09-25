@@ -3,11 +3,11 @@ import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 
-import roles from './Routes/roles.js';
-import activities from "./Routes/activities.js";
-import eventRouter from "./Routes/eventRoutes.js";
 import { connectToDatabase } from "./Models/database.js";
 import { errorHandler } from "./Middlewares/errorMiddleWare.js";
+import eventRouter from "./Routes/eventRoutes.js";
+import activityRouter from "./Routes/activities.js";
+import rolesRouter from "./Routes/roles.js";
 
 dotenv.config();
 
@@ -17,9 +17,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-app.use("/activities",activities);
+app.use("/activities",activityRouter);
 app.use("/events", eventRouter);
-app.use("/roles", roles);
+app.use("/categories", categoryRouter);
+app.use("/roles", rolesRouter);
 
 app.use(errorHandler);
 
