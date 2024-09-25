@@ -23,8 +23,7 @@ export const studentSignup = async (req, res, next) => {
     if (password !== confirmPassword)
       return res.status(422).json({ message: "Passwords do not match" });
 
-    const sql =
-      "select * from student where name = ? and email = ? and enrollment_number = ?";
+    const sql = "select * from student where name = ? and email = ? and enrollment_number = ?";
     pool.query(sql, [name, email, enrollmentNumber], async (err, result) => {
       if (err)
         return res
@@ -32,13 +31,14 @@ export const studentSignup = async (req, res, next) => {
           .json({ message: err.message, data: "Unauthorized Access" });
       if (result.length === 0)
         return res.status(404).json({ message: "Student does not exist" });
+      
+      if(!result.password) return res.status(409).send("user already exists");
 
       const hashedPassword = await hash(password, 10);
 
       //checking purposess...
       console.log(hashedPassword);
-      const updateSql =
-        "update student set password = ? where name = ? and email = ? and enrollment_number = ?";
+      const updateSql = "update student set password = ? where name = ? and email = ? and enrollment_number = ?";
       pool.query(
         updateSql,
         [hashedPassword, name, email, enrollmentNumber],
@@ -52,7 +52,7 @@ export const studentSignup = async (req, res, next) => {
             res.clearCookie(COOKIE_NAME, {
               path: "/",
               domain: "localhost",
-              httponly: true,
+              httpOnly: true,
               signed: true,
             });
 
@@ -67,8 +67,8 @@ export const studentSignup = async (req, res, next) => {
             res.cookie(COOKIE_NAME, token, {
               path: "/",
               domain: "localhost",
-              expiresDate,
-              httponly: true,
+              expires:expiresDate,
+              httpOnly: true,
               signed: true,
             });
             return res
