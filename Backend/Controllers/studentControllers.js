@@ -6,6 +6,7 @@ import { createToken } from "../Utils/token.js";
 //for testing purposes only.
 export const getAllstudents = async (req, res, next) => {
   try {
+    console.log("hello");
     const sql = "select * from student";
     pool.query(sql, (err, result) => {
       if (err) return res.status(500).json({ error: err.message });
@@ -96,9 +97,9 @@ export const studentLogin = async (req, res, next) => {
       else {
         if(result.length === 0) return res.status(404).json({ message:"Not found"});
 
-        if (!result.password) return res.status(422).json({ message: "No password found for user" });
+        if (!result[0].password) return res.status(422).json({ message: "No password found for user" });
         
-        const isPassword = await compare(password, result.password);
+        const isPassword = await compare(password, result[0].password);
         if (!isPassword) {
           return res.status(422).json({ message: "Invalid password" });
         }
@@ -133,8 +134,13 @@ export const studentLogin = async (req, res, next) => {
 
 export const getstudentProfileID = async (req, res, next) => {
   try {
-    const std_id = req.params.id;
+    console.log("hello world");
+    //const std_id = 1;
+    //need to check with the output.
     const sql = "select * from student where student_id = ?";
+
+    // Debug: Log the ID being used
+    console.log(`Fetching student with ID: ${std_id}`);
 
     pool.query(sql, [std_id], (err, result) => {
       if (err) return res.status(404).json({ error: err.message });
