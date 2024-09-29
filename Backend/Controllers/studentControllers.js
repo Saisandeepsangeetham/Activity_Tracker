@@ -115,7 +115,8 @@ export const studentLogin = async (req, res, next) => {
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getDate() + 7);
 
-        const token = createToken(result.enrollment_number, result.email, "7d");
+        const payload = {enrollment_num: result.enrollment_number, email: result.email};
+        const token = createToken(payload, "7d");
         res.cookie(COOKIE_NAME, token, {
           path: "/",
           domain: "localhost",

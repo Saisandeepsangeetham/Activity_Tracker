@@ -1,14 +1,15 @@
 import express from 'express';
+import pool from "../Models/database.js";
 import { getAllstudents, getstudentProfileID, studentLogin, studentSignup } from '../Controllers/studentControllers.js';
 
 const studentRouter = express.Router();
 
-studentRouter.get('/:id',(req,res,next)=>{
+studentRouter.get('/:std_id',(req,res,next)=>{
     try {
         console.log("hello world");
         //const std_id = 1;
         //need to check with the output.
-        const std_id = parseInt(req.params.id,10);
+        const {std_id} = req.params;
         const sql = "select * from student where student_id = ?";
     
         // Debug: Log the ID being used
