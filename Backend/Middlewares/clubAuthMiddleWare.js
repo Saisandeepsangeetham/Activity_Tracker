@@ -9,7 +9,11 @@ export const authenticateEditOption = (req,res,next) =>{
 
     try {
         const decoded = jwt.verify(token,process.env.JWT_SECRET);
+        //console.log(decoded);
         const student_id = decoded.student_id;
+        //checking purposes only...
+        console.log(student_id)
+
         const teacher_id = decoded.teacher_id;
         const club_id = parseInt(req.params.id,10);
         

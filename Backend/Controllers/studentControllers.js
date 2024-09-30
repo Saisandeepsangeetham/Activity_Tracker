@@ -112,6 +112,10 @@ export const studentLogin = async (req, res, next) => {
           student_email: result.email,
         };
         const token = createToken(payload, "7d");
+        
+        //for checking purposes only...
+        console.log(token);
+        
         res.cookie(COOKIE_NAME, token, {
           path: "/",
           domain: "localhost",

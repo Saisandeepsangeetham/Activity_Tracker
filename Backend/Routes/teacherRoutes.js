@@ -1,6 +1,6 @@
 import express from 'express';
 import clubRouter from './clubRoutes.js'
-import { createStudent, createTeacher, getAllStudents, teacherLogin, teacherSignUp } from '../Controllers/teacherController.js';
+import { createStudent, createTeacher, getAllStudents, teacherLogin } from '../Controllers/teacherController.js';
 import { authenticateHod, authenticateTeacher } from '../Middlewares/teacherAuthMiddleWare.js';
 
 const teacherRouter = express.Router();

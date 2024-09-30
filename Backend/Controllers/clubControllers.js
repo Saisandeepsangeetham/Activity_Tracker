@@ -55,7 +55,7 @@ export const updateclubInfo = (req,res,next) =>{
         if(isNaN(club_id)) return res.status(404).json({message:"Invalid clud id"});
 
         const {name,description,teacher_name,teacher_email} = req.body;
-        if(!name || !description || !teacher_name) return res.status(402).json({message:"All details needed"});
+        if(!name || !description || !teacher_name || !teacher_email) return res.status(402).json({message:"All details needed"});
         const club_sql = "select * from club where club_id = ?";
         pool.query(club_sql,[club_id],(err,result)=>{
             if(err) return res.status(500).json({message:err.message});
@@ -126,7 +126,7 @@ export const addClub = (req, res, next) => {
 
 export const getallclubEvents = (req, res, next) => {
     try {
-        const club_id = parseInt(req.params.club_id, 10);
+        const club_id = parseInt(req.params.id, 10);
         if (isNaN(club_id)) 
             return res.status(400).json({ message: "Invalid club ID" });
 

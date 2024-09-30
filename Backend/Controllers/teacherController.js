@@ -75,6 +75,8 @@ export const teacherLogin = async (req, res) => {
 
       const payload = {teacher_id: teacher.teacher_id, role_id: teacher.role_id, dept: teacher.dept}
       const token = createToken(payload, "7d");
+      //checking purposes only...
+      console.log(token);
         res.cookie(COOKIE_NAME, token, {
           path: "/",
           domain: "localhost",
