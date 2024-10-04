@@ -108,8 +108,8 @@ export const studentLogin = async (req, res, next) => {
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getDate() + 7);
         const payload = {
-          student_id: result.student_id,
-          student_email: result.email,
+          student_id: result[0].student_id,
+          student_email: result[0].email,
         };
         const token = createToken(payload, "7d");
         

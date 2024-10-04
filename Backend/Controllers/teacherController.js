@@ -74,6 +74,8 @@ export const teacherLogin = async (req, res) => {
       expiresDate.setDate(expiresDate.getDate() + 7);
 
       const payload = {teacher_id: teacher.teacher_id, role_id: teacher.role_id, dept: teacher.dept}
+      if(teacher.club_id !== null)
+        payload['teacher_club'] = teacher.club_id;
       const token = createToken(payload, "7d");
       //checking purposes only...
       console.log(token);
